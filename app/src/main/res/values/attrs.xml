@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="LoadingButton">
-<!--   TODO: create custom attributes for the view-->
+    <declare-styleable name="WaveButton">
+        <attr name="idleText" format="string" />
+        <attr name="loadingText" format="string" />
+        <attr name="loadedText" format="string" />
+
+        <attr name="idleTextColor" format="color" />
+        <attr name="loadingTextColor" format="color" />
+        <attr name="loadedTextColor" format="color" />
+
+        <attr name="idleBackgroundColor" format="color" />
+        <attr name="loadingBackgroundColor" format="color" />
+        <attr name="loadedBackgroundColor" format="color" />
+
+        <attr name="idleBorderColor" format="color" />
+        <attr name="loadingBorderColor" format="color" />
+        <attr name="loadedBorderColor" format="color" />
     </declare-styleable>
 </resources>
