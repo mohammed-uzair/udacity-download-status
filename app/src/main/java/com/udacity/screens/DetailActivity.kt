@@ -1,12 +1,15 @@
 package com.udacity.screens
 
 import android.app.DownloadManager
+import android.app.NotificationManager
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.udacity.R
 import com.udacity.databinding.ActivityDetailBinding
+import com.udacity.util.cancelNotifications
 
 class DetailActivity : AppCompatActivity() {
     companion object {
@@ -29,11 +32,12 @@ class DetailActivity : AppCompatActivity() {
         if (intent != null) {
             val fileName = intent.getStringExtra(INTENT_EXTRA_FILE_NAME)
             val status = intent.getStringExtra(INTENT_EXTRA_STATUS)
-            if (fileName != null) {
-                binding.content.fileNameText.text = fileName
-            }
             if (status != null) {
-                binding.content.statusText.text = status
+                binding.content.statusTextView.text = status
+            }
+
+            if (fileName != null) {
+                binding.content.urlText.text = fileName
             }
         }
 
@@ -42,5 +46,17 @@ class DetailActivity : AppCompatActivity() {
         }
 
         binding.content.button.setOnClickListener { onBackPressed() }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val notificationManager = ContextCompat.getSystemService(
+            applicationContext,
+            NotificationManager::class.java
+        ) as NotificationManager
+
+        //Cancel previous notifications
+        notificationManager.cancelNotifications()
     }
 }

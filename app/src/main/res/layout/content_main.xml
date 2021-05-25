@@ -7,8 +7,8 @@
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/default_spacing"
         android:background="#F8F9FA"
+        android:padding="@dimen/default_spacing"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".screens.MainActivity"
         tools:showIn="@layout/activity_main">
@@ -35,54 +35,71 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/editTextLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:hint="@string/url_to_download_file"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            app:layout_constraintTop_toBottomOf="@+id/imageView2">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editText"
                 android:layout_width="match_parent"
+                android:drawablePadding="@dimen/default_spacing"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_download"
                 android:drawableTint="@color/colorPrimaryDark"
-                android:gravity="center"
                 android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <RadioGroup
-            android:id="@+id/files_download_radio_group"
-            android:layout_width="match_parent"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card"
+            android:layout_width="0dp"
+            android:backgroundTint="#E6E6E6"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_spacing"
+            android:elevation="3dp"
+            android:padding="@dimen/default_spacing"
+            app:cardCornerRadius="10dp"
+            android:layout_marginBottom="@dimen/default_spacing"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextLayout">
 
-            <RadioButton
-                android:id="@+id/glide_radio_button"
+            <RadioGroup
+                android:id="@+id/files_download_radio_group"
                 android:layout_width="match_parent"
+                android:padding="@dimen/default_spacing"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_spacing"
-                android:text="@string/download_file_glide" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextLayout">
 
-            <RadioButton
-                android:id="@+id/current_repo_radio_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_spacing"
-                android:text="@string/download_file_load_app" />
+                <RadioButton
+                    android:id="@+id/glide_radio_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/download_file_glide" />
 
-            <RadioButton
-                android:id="@+id/retrofit_radio_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_spacing"
-                android:text="@string/download_file_retrofit" />
+                <RadioButton
+                    android:id="@+id/current_repo_radio_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_spacing"
+                    android:text="@string/download_file_load_app" />
 
-        </RadioGroup>
+                <RadioButton
+                    android:id="@+id/retrofit_radio_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_spacing"
+                    android:text="@string/download_file_retrofit" />
+
+            </RadioGroup>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.udacity.custom_views.button.WaveView
             android:id="@+id/wave_button"

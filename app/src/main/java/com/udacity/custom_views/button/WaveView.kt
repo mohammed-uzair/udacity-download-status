@@ -23,6 +23,8 @@ class WaveView @JvmOverloads constructor(
     companion object {
         const val DEFAULT_ANIMATION_DURATION = 1200L
         const val IMMEDIATE_ANIMATION_DURATION = 300L
+        const val ARC_FULL_ROTATION_DEGREE = 360
+        const val PERCENTAGE_DIVIDER = 100.0
     }
 
     private var state: ButtonState by Delegates.observable(ButtonState.Idle) { _, _, newValue ->
@@ -48,6 +50,8 @@ class WaveView @JvmOverloads constructor(
     private lateinit var loadingText: String
     private lateinit var loadedText: String
 
+    private val ovalSpace = RectF()
+
     private var idleTextColor = Color.parseColor("#000000")
     private var loadingTextColor = Color.parseColor("#FFFFFF")
     private var loadedTextColor = Color.parseColor("#FFFFFF")
@@ -62,9 +66,27 @@ class WaveView @JvmOverloads constructor(
 
     private lateinit var valueAnimator: ValueAnimator
 
+    private var parentArcColor = Color.parseColor("#DFE6F3")
+    private var fillArcColor = Color.parseColor("#1E4FA3")
+
+    private val parentArcPaint = Paint().apply {
+        style = Paint.Style.STROKE
+        isAntiAlias = true
+        color = parentArcColor
+        strokeWidth = 8f
+    }
+
+
+    private val fillArcPaint = Paint().apply {
+        style = Paint.Style.STROKE
+        isAntiAlias = true
+        color = fillArcColor
+        strokeWidth = 8f
+        strokeCap = Paint.Cap.ROUND
+    }
+
     private val backgroundPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
-        strokeWidth = 0f
     }
 
     private val borderPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -74,8 +96,6 @@ class WaveView @JvmOverloads constructor(
 
     private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
-        strokeWidth = dip2px(context, 5f).toFloat()
-        strokeWidth = 0f
         textSize = 60f
     }
 
@@ -113,6 +133,11 @@ class WaveView @JvmOverloads constructor(
                 getColor(R.styleable.WaveButton_loadingBorderColor, Color.parseColor("#1a7aff"))
             loadedBorderColor =
                 getColor(R.styleable.WaveButton_loadedBorderColor, Color.parseColor("#1a7aff"))
+
+            parentArcColor =
+                getColor(R.styleable.WaveButton_outlineCircleColor, Color.parseColor("#1a7aff"))
+            fillArcColor =
+                getColor(R.styleable.WaveButton_loadingCircleColor, Color.parseColor("#1a7aff"))
         }
     }
 
@@ -228,10 +253,18 @@ class WaveView @JvmOverloads constructor(
         drawText(canvas, textPaint, text)
 
         createAnimator()
+
+        drawLoadingCircle(canvas)
     }
 
     fun startLoading() {
         state = ButtonState.Clicked
+    }
+
+    private fun drawLoadingCircle(canvas: Canvas) {
+        setSpace()
+        drawBackgroundArc(canvas)
+        drawInnerArc(canvas)
     }
 
     private fun drawText(canvas: Canvas, paint: Paint?, text: String) {
@@ -269,11 +302,6 @@ class WaveView @JvmOverloads constructor(
         return viewSize
     }
 
-    private fun dip2px(context: Context, dpValue: Float): Int {
-        val scale = context.resources.displayMetrics.density
-        return (dpValue * scale + 0.5f).toInt()
-    }
-
     fun setCompleted() {
         state = ButtonState.Completed
     }
@@ -299,7 +327,8 @@ class WaveView @JvmOverloads constructor(
                     if (state == ButtonState.Completed) {
                         duration = IMMEDIATE_ANIMATION_DURATION
                     } else {
-                        progress = (it.animatedValue as Float).toInt()
+                        val percentage = it.animatedValue as Float
+                        progress = percentage.toInt()
                     }
 
                     invalidate()
@@ -309,4 +338,28 @@ class WaveView @JvmOverloads constructor(
             }
         }
     }
+
+    private fun setSpace() {
+        val horizontalCenter = (width.div(12)).toFloat()
+        val verticalCenter = (height.div(2)).toFloat()
+        val ovalSize = 25
+        ovalSpace.set(
+            horizontalCenter - ovalSize,
+            verticalCenter - ovalSize,
+            horizontalCenter + ovalSize,
+            verticalCenter + ovalSize
+        )
+    }
+
+    private fun drawBackgroundArc(it: Canvas) {
+        it.drawArc(ovalSpace, 0f, 360f, false, parentArcPaint)
+    }
+
+    private fun drawInnerArc(canvas: Canvas) {
+        val percentageToFill = getCurrentPercentageToFill()
+        canvas.drawArc(ovalSpace, 270f, percentageToFill, false, fillArcPaint)
+    }
+
+    private fun getCurrentPercentageToFill() =
+        (ARC_FULL_ROTATION_DEGREE * (progress / PERCENTAGE_DIVIDER)).toFloat()
 }

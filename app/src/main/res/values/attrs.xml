@@ -16,5 +16,8 @@
         <attr name="idleBorderColor" format="color" />
         <attr name="loadingBorderColor" format="color" />
         <attr name="loadedBorderColor" format="color" />
+
+        <attr name="outlineCircleColor" format="color" />
+        <attr name="loadingCircleColor" format="color" />
     </declare-styleable>
 </resources>
