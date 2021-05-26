@@ -154,7 +154,6 @@ class MainActivity : AppCompatActivity() {
 
         val request =
             DownloadManager.Request(Uri.parse(url))
-                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "downloadfile")
                 .setTitle(getString(R.string.app_name))
                 .setDescription(getString(R.string.app_description))
 

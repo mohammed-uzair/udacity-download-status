@@ -41,10 +41,6 @@ class DetailActivity : AppCompatActivity() {
             }
         }
 
-        binding.content.openDownloadsButton.setOnClickListener {
-            startActivity(Intent(DownloadManager.ACTION_VIEW_DOWNLOADS));
-        }
-
         binding.content.button.setOnClickListener { onBackPressed() }
     }
 

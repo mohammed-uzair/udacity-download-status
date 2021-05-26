@@ -44,19 +44,6 @@
             tools:text="https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip" />
 
         <Button
-            android:id="@+id/openDownloadsButton"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/default_spacing"
-            android:text="@string/open_downloads"
-            android:textColor="@color/colorAccent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
             android:id="@+id/button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -65,10 +52,10 @@
             android:padding="@dimen/default_spacing"
             android:text="@android:string/ok"
             android:textColor="@android:color/white"
-            app:layout_constraintBaseline_toBaselineOf="@id/openDownloadsButton"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@id/openDownloadsButton" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 
