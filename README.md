@@ -4,7 +4,7 @@ This app is a demonstration of a custom button that displays the status informat
 ## Screens
 <img src="assets/screen1.png" width="428" height="926" />	<img src="assets/screen2.png" width="428" height="926" />
 <img src="assets/screen3.png" width="428" height="926" />	<img src="assets/screen4.png" width="428" height="926" />
-![Example1](assets/walkthrough.gif)
+<img src="assets/walkthrough.gif" width="428" height="926" />
 
 ## Report Issues
 Notice any issues with a repository? Please file a github issue in the repository.
